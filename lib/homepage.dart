@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -122,10 +123,21 @@ class _HomePageState extends State<HomePage> {
     162
   ];
 
+  List<int> food = [];
+  int score=0;
   String direction = "right";
 
   void startGame() {
-    Timer.periodic(Duration(milliseconds: 150), (timer) {
+    getFood();
+    Timer.periodic(Duration(milliseconds: 150), (timer) { //every 150 ms it checks and updates the direction, which moves pacman
+
+      if(food.contains(player)){
+        setState(() {
+          food.remove(player);
+          score++;
+        });
+      }
+
       switch(direction){
         case "left":
           moveLeft();
@@ -169,6 +181,14 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         player+= numberInRow;
       });
+    }
+  }
+
+  void getFood(){
+    for(int i=0; i<numberOfSquares; i++){
+      if(!barriers.contains(i)){
+        food.add(i);
+      }
     }
   }
 
@@ -265,3 +285,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+//TODO: after pressing Start the text switchs to Reset
+//TODO: Update the yellow dots to disappear
