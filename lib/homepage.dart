@@ -292,3 +292,6 @@ class _HomePageState extends State<HomePage> {
 }
 
 //TODO: after pressing Start the text should be Reset
+//TODO: implement pacman sound
+//TODO: implement fruits
+//TODOL implement
