@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -178,7 +179,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Expanded(
-            flex: 5,
+            flex: 6,
             child: GestureDetector(
               onVerticalDragUpdate: (details) {
                 if (details.delta.dy > 0) {
@@ -205,6 +206,20 @@ class _HomePageState extends State<HomePage> {
                         crossAxisCount: numberInRow),
                     itemBuilder: (BuildContext context, int index) {
                       if (player == index) {
+                        switch(direction){
+                          case "left":
+                            return Transform.rotate(angle: pi, child: MyPlayer(),);
+                            break;
+                          case "right":
+                            return MyPlayer();
+                            break;
+                          case "up":
+                            return Transform.rotate(angle: 3*pi/2, child: MyPlayer(),);
+                            break;
+                          case "down":
+                            return Transform.rotate(angle: pi/2, child: MyPlayer(),);
+                            break;
+                        }
                         return MyPlayer();
                       } else if (barriers.contains(index)) {
                         return MyPixel(
