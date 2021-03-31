@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:html';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -129,7 +128,7 @@ class _HomePageState extends State<HomePage> {
 
   void startGame() {
     getFood();
-    Timer.periodic(Duration(milliseconds: 150), (timer) { //every 150 ms it checks and updates the direction, which moves pacman
+    Timer.periodic(Duration(milliseconds: 100), (timer) { //every 150 ms it checks and updates the direction, which moves pacman
 
       if(food.contains(player)){
         setState(() {
@@ -199,7 +198,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Expanded(
-            flex: 6,
+            flex: 8,
             child: GestureDetector(
               onVerticalDragUpdate: (details) {
                 if (details.delta.dy > 0) {
@@ -247,9 +246,15 @@ class _HomePageState extends State<HomePage> {
                           outerColor: Colors.blue[900],
                           child: Text(""),
                         );
-                      } else {
+                      } else if (food.contains(index)){
                         return MyPath(
                           innerColor: Colors.yellow,
+                          outerColor: Colors.black,
+                          child: Text(""),
+                        );
+                      } else{
+                        return MyPath(
+                          innerColor: Colors.black,
                           outerColor: Colors.black,
                           child: Text(""),
                         );
@@ -265,13 +270,13 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      "Score: ",
-                      style: TextStyle(color: Colors.white, fontSize: 40),
+                      "Score: $score",
+                      style: TextStyle(color: Colors.white, fontSize: 35),
                     ),
                     GestureDetector(
                       child: Text(
                         "P L A Y ",
-                        style: TextStyle(color: Colors.white, fontSize: 40),
+                        style: TextStyle(color: Colors.white, fontSize: 35),
                       ),
                       onTap: startGame,
                     ),
@@ -286,5 +291,4 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-//TODO: after pressing Start the text switchs to Reset
-//TODO: Update the yellow dots to disappear
+//TODO: after pressing Start the text should be Reset
